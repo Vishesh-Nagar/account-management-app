@@ -22,7 +22,7 @@ Smooth transitions between Login and Registration pages with easy toggling optio
 ## Installation
 To run the application, follow these steps:
 
-git clone https://github.com/yourusername/accumanage.git
+git clone https://github.com/VisheshNagar/accumanage.git
 
 cd accumanage
 
