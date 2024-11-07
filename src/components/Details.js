@@ -151,7 +151,7 @@ function Details() {
                     variant="secondary"
                     onClick={() => window.location.href = "/login"} // Redirect to login page
                 >
-                    Go to Login
+                    Logout
                 </Button>
             </div>
         </div>
