@@ -1,50 +1,83 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import Register from "./Register";
 
-function Login({ onLogin }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+function Login() {
+    const [emailLog, setEmailLog] = useState("");
+    const [passwordLog, setPasswordLog] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [register, setRegister] = useState(false); // Default to false to show login first
 
-    const handleSubmit = (e) => {
+    const navigate = useNavigate(); // Use useNavigate hook for navigation
+
+    function handleLogin(e) {
         e.preventDefault();
-        const userInfo = { email, password };
-        onLogin(userInfo);
-    };
+        const storedEmail = JSON.parse(localStorage.getItem("Email"));
+        const storedPassword = JSON.parse(localStorage.getItem("Password"));
+
+        if (!emailLog || !passwordLog) {
+            setErrorMessage("Both fields are required.");
+        } else if (passwordLog !== storedPassword || emailLog !== storedEmail) {
+            setErrorMessage("Invalid email or password.");
+        } else {
+            setErrorMessage("");
+            // Redirect to the Details page after successful login
+            navigate("/details");
+        }
+    }
+
+    function handleClick() {
+        setRegister(!register); // Toggle between Login and Register
+    }
 
     return (
-        <div className="card p-4">
-            <h3>Login</h3>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="mb-3">
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">
-                    Login
-                </button>
-            </form>
-            <div className="mt-3">
-                <p>Don't have an account?</p>
-                <Link to="/register" className="btn btn-secondary">
-                    Go to Registration
-                </Link>
-            </div>
+        <div>
+            {register ? (
+                <Register />
+            ) : (
+                <form onSubmit={handleLogin}>
+                    <h3>Log In</h3>
+                    <div className="form-group">
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            placeholder="Enter email"
+                            onChange={(e) => setEmailLog(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            placeholder="Enter password"
+                            onChange={(e) => setPasswordLog(e.target.value)}
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="btn btn-dark btn-lg btn-block"
+                    >
+                        Log In
+                    </button>
+
+                    <button
+                        type="button"
+                        className="btn btn-secondary btn-sm mt-2 btn-block"
+                        onClick={handleClick}
+                    >
+                        Register
+                    </button>
+
+                    {errorMessage && (
+                        <Alert variant="warning">{errorMessage}</Alert>
+                    )}
+                </form>
+            )}
         </div>
     );
 }
