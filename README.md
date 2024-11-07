@@ -22,9 +22,12 @@ Smooth transitions between Login and Registration pages with easy toggling optio
 ## Installation
 To run the application, follow these steps:
 
-git clone https://github.com/yourusername/accumanage.git
+git clone https://github.com/Vishesh-Nagar/accumanage.git
+
 cd accumanage
+
 npm install
+
 npm start
 
 The app will open in your default browser at http://localhost:3000.
