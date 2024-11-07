@@ -63,7 +63,7 @@ function Details() {
                 <div className={`alert ${message.includes("successfully") ? 'alert-success' : 'alert-danger'}`}>
                     {message}
                 </div>
-            )} {/* Show error or success message */}
+            )}
 
             {/* Toggle between viewing and editing user details */}
             {editing ? (
@@ -106,13 +106,17 @@ function Details() {
                     >
                         Save Changes
                     </Button>
-                    <Button
-                        variant="secondary"
-                        className="mt-3 ms-2"
-                        onClick={() => setEditing(false)} // Cancel edit mode
-                    >
-                        Cancel
-                    </Button>
+
+                    {/* Cancel Button */}
+                    <div className="d-flex justify-content-center mt-3">
+                        <Button
+                            variant="secondary"
+                            className="cancel-btn"
+                            onClick={() => setEditing(false)} // Cancel edit mode
+                        >
+                            Cancel
+                        </Button>
+                    </div>
                 </Form>
             ) : (
                 // View Mode - Show user details
